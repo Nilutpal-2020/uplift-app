@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import {withRouter} from 'react-router-dom';
 class CreateTodo extends Component {
     state = {
         todo: '',
@@ -14,20 +14,20 @@ class CreateTodo extends Component {
 
     onChangeTodo = (event) => {
         this.setState({
-            todo: event.target.value
-        });;
+            todo: event.target.value.trim()
+        });
     }
 
     onChangeDescription = (event) => {
         this.setState({
-            description: event.target.value
+            description: event.target.value.trim()
         });
     }
 
     onChangeSubTasks = (event) => {
         let tasks = event.target.value;
 
-        tasks = tasks.split('\n');
+        tasks = tasks.trim().split('\n');
 
         tasks = tasks.reduce((result, index) => {
             result[index] = false;
@@ -45,7 +45,7 @@ class CreateTodo extends Component {
         });
     };
 
-    onSubmit = (event) => {
+    onSubmit = async (event) => {
         event.preventDefault();
         const config = {
             headers: {
@@ -62,17 +62,17 @@ class CreateTodo extends Component {
 
         // console.log(todos);
 
-        axios.post('http://localhost:5000/todos/add', todos, config)
-            .then(res => console.log(res.data))
+        await axios.post('/todos/add', todos, config)
+            .then(() => console.log("Done!"))
             .catch(err => console.log(err));
 
-        window.location = '/notes';
+        this.props.history.push('/notes');
     };
 
     render() {
         return (
             <div className="container">
-            <div className="jumbotron border border-success m-3">
+            <div className="jumbotron border border-success m-2">
                 <h3 className="text-uppercase text-center" style={{fontSize: '2em', fontWeight: 'lighter'}}>Create New Todo</h3>
                 <hr className="my-4" />
                 <form onSubmit={this.onSubmit}>
@@ -82,9 +82,9 @@ class CreateTodo extends Component {
                             type="text"
                             required
                             className="form-control"
-                            placeholder="Take a Note..."
+                            placeholder="Title"
                             maxLength="25"
-                            value={this.state.todo}
+                            // value={this.state.todo}
                             onChange={this.onChangeTodo} />
                     </div>
                     <div className="form-group">
@@ -92,10 +92,10 @@ class CreateTodo extends Component {
                         <textarea
                             className="form-control"
                             rows="2"
-                            placeholder="Description..."
+                            placeholder="Description (Optional)"
                             maxLength="100"
                             style={{resize: 'none'}}
-                            value={this.state.description}
+                            // value={this.state.description}
                             onChange={this.onChangeDescription}>
                         </textarea>
                     </div>
@@ -109,6 +109,7 @@ class CreateTodo extends Component {
                             timeInputLabel="Time:"
                             dateFormat="dd/MM/yyyy h:mm aa"
                             showTimeInput
+                            required
                             placeholderText="Select Date:" />
                         </div>
                     </div>
@@ -117,10 +118,10 @@ class CreateTodo extends Component {
                         <textarea
                             className="form-control"
                             rows="3"
-                            placeholder="Add Sub-Tasks on each line..."
+                            placeholder="Add Sub-Tasks on each line (Optional)"
                             style={{resize: 'none'}}
                             maxLength="150"
-                            value={this.state.subTasks ? Object.keys(this.state.subTasks).join('\n') : null}
+                            // value={this.state.subTasks ? Object.keys(this.state.subTasks).join('\n') : null}
                             onChange={this.onChangeSubTasks}>
                         </textarea>
                     </div>
@@ -134,4 +135,4 @@ class CreateTodo extends Component {
     }
 }
 
-export default CreateTodo;
+export default withRouter(CreateTodo);

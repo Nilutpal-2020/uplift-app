@@ -9,22 +9,26 @@ class TodoList extends Component {
         todos: [],
         prevTodos: [],
         searchTodos: [],
-        error: false
+        error: false,
+        empty: false
     }
 
-    componentDidMount() {
-        if (!localStorage.getItem('auth-token')) {
-            window.location = "/login";
-        }
+    componentDidMount = async () => {
+        // if (!localStorage.getItem('auth-token')) {
+        //     window.location = "/login";
+        // }
 
         let config = {
             headers: {
                 "x-auth-token": localStorage.getItem("auth-token")
             }
         };
-        axios.get('http://localhost:5000/todos/', config)
+        await axios.get('/todos/', config)
             .then(res => {
                 this.setState({todos: res.data});
+                if (res.data.length === 0) {
+                    this.setState({empty: true})
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -39,7 +43,7 @@ class TodoList extends Component {
             }
         };
 
-        axios.delete('http://localhost:5000/todos/'+id, config)
+        axios.delete('/todos/'+id, config)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
@@ -60,7 +64,13 @@ class TodoList extends Component {
             todos: newTodos
         });
 
-        axios.post('http://localhost:5000/todos/update/' + id, newtodo)
+        let config = {
+            headers: {
+                "x-auth-token": localStorage.getItem("auth-token")
+            }
+        };
+
+        axios.post('/todos/update/' + id, newtodo, config)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }
@@ -76,7 +86,13 @@ class TodoList extends Component {
             todos: newTodos
         })
 
-        axios.post('http://localhost:5000/todos/update/' + id, newSubTask)
+        let config = {
+            headers: {
+                "x-auth-token": localStorage.getItem("auth-token")
+            }
+        };
+
+        axios.post('/todos/update/' + id, newSubTask, config)
             .then(res => console.log(res.data))
             .catch(err => console.log(err)
             );
@@ -128,7 +144,7 @@ class TodoList extends Component {
                 }
             }
             
-            console.log(toggleList);
+            // console.log(toggleList);
 
             this.setState(prevState => {
                 return {
@@ -142,6 +158,10 @@ class TodoList extends Component {
             toggleList = toggleList.filter((todo) => todo.date.substring(0,10) === today.toISOString().substring(0,10));
 
             // console.log(toggleList);
+            if (toggleList.length === 0) {
+                this.setState({empty: true})
+            }
+
             this.setState(prevState => {
                 return {
                     todos: toggleList,
@@ -151,6 +171,7 @@ class TodoList extends Component {
         } else  {
             this.setState({
                 todos: this.state.prevTodos,
+                empty: false,
                 prevTodos: []
             });
         }
@@ -171,23 +192,21 @@ class TodoList extends Component {
             }
         }
 
-        console.log(foundTodos);
+        // console.log(foundTodos);
 
         this.setState({
             searchTodos: foundTodos
         })
     }
 
-    onCloseSearch = () => {
-
-    }
-
     render() {
-        console.log(this.state.todos)
+        // console.log(this.state.todos)
         let todos = <Spinner />
 
         if(this.state.error) {
             todos = <div className="alert alert-info m-3 text-center" role="alert">Something went wrong! Check Your Connection...</div>
+        } else if (this.state.empty) {
+            todos = <div className="alert alert-info m-3 text-center" role="alert">No Todos Found!!!</div>
         } else if (this.state.todos.length > 0) {
             todos = this.todoList();
         }
@@ -202,21 +221,21 @@ class TodoList extends Component {
                         <option value="Sort">Sort</option>
                         <option value="Today">Today</option>
                     </select>
-                    <div className="input-group ml-3">
+                    <div className="input-group m-2">
                         <input 
                             type="text" 
                             className="form-control" 
                             placeholder="Search" 
                             aria-label="Search" 
-                            aria-describedby="button-close"
+                            // aria-describedby="button-close"
                             onChange={(event)=> this.handleSearch(event)} />
-                        <div className="input-group-append">
+                        {/* <div className="input-group-append">
                             <button 
                                 className="btn btn-outline-secondary" 
                                 type="button" 
                                 id="button-close"
                                 onClick={() => this.onCloseSearch}>X</button>
-                        </div>
+                        </div> */}
                     </div>
                 </form>
                 <div className="text-muted float-right m-3">Total Tasks: {this.state.todos.filter((todo) => !todo.completed).length}</div>

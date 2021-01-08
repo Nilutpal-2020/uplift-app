@@ -11,6 +11,7 @@ function Notes() {
     return (
         <Router>
             <Navbar />
+            {/* <TodoList /> */}
             <Route path="/notes" exact component={TodoList} />
             <Route path="/notes/edit/:id" exact component={EditTodo} />
             <Route path="/notes/create" exact component={CreateTodo} />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { withRouter } from 'react-router-dom';
 
 class EditTodo extends Component {
     state = {
@@ -12,14 +13,14 @@ class EditTodo extends Component {
         date: new Date()
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
         let config = {
             headers: {
                 "x-auth-token": localStorage.getItem("auth-token")
             }
         };
 
-        axios.get('http://localhost:5000/todos/' + this.props.match.params.id, config)
+        await axios.get('/todos/' + this.props.match.params.id, config)
             .then(res => {
                 this.setState({
                     todo: res.data.todo,
@@ -65,8 +66,13 @@ class EditTodo extends Component {
         });
     }
 
-    onSubmit = (event) => {
+    onSubmit = async (event) => {
         event.preventDefault();
+        let config = {
+            headers: {
+                "x-auth-token": localStorage.getItem("auth-token")
+            }
+        };
 
         const todos = {
             todo: this.state.todo,
@@ -78,11 +84,11 @@ class EditTodo extends Component {
 
         // console.log(todos);
 
-        axios.post('http://localhost:5000/todos/update/' + this.props.match.params.id, todos)
+        await axios.post('/todos/update/' + this.props.match.params.id, todos, config)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
 
-        window.location = '/notes';
+        this.props.history.push("/notes");
     };
 
     render() {
@@ -150,4 +156,4 @@ class EditTodo extends Component {
     }
 }
 
-export default EditTodo;
+export default withRouter(EditTodo);

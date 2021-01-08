@@ -1,0 +1,77 @@
+.SideDrawer {
+    position: fixed;
+    width: 180px;
+    max-width: 70%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    bottom: 20;
+    z-index: 1000;
+    background-color: white;
+    padding: 32px 16px;
+    box-sizing: border-box;
+    transition: transform 0.4s ease-in-out;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background: #4ca1af;
+    background: -webkit-linear-gradient(to right, #4ca1af, #c4e0e5);
+    background: linear-gradient(to right, #4ca1af, #c4e0e5);
+    /* box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12); */
+}
+
+.SideDrawer .ItemContainer {
+    display: flex;
+    flex-flow: column;
+    position: fixed;
+    top: 30%;
+    left: 2%;
+}
+
+.SideDrawer .ItemContainer .item4 {
+    position: fixed;
+    left: 20%;
+    bottom: 5%;
+}
+
+.SideDrawer .ItemContainer .item1,
+.item2,
+.item3 {
+    margin: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    padding: 6px 6px 5px 10px;
+}
+
+.SideDrawer .ItemContainer .item1:hover,
+.item2:hover,
+.item3:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in;
+}
+
+.SideDrawer .ItemContainer .ActiveN {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.SideDrawer .ItemContainer .item1 i,
+.item2 i,
+.item3 i {
+    margin-left: 5px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.Open {
+    transform: translateX(0);
+}
+
+.Close {
+    transform: translateX(-100%);
+}
+
+
+/* @media (max-width: 500px) {
+    .SideDrawer {
+        top: 8%;
+    }
+} */

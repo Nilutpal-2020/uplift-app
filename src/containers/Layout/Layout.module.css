@@ -1,0 +1,23 @@
+/* .Layout {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+
+.Layout .SideDrawer {
+    width: 10%;
+}
+
+.Layout .Route {
+    width: 90%;
+}
+
+@media (max-width: 600px) {
+    .Layout .SideDrawer {
+        width: 20%;
+    }
+    .Layout .Route {
+        width: 80%;
+    }
+} */

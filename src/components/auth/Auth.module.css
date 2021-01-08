@@ -1,0 +1,37 @@
+.Login {
+    margin-top: 3%;
+    /* background: #7f7fd5;
+    background: linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4); */
+    background: #4ca1af;
+    background: -webkit-linear-gradient(to bottom, #4ca1af, #c4e0e5);
+    background: linear-gradient(to bottom, #4ca1af, #c4e0e5);
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+    border-radius: 1%;
+    text-align: center;
+}
+
+.Login .LogoImg img {
+    margin: 5% 0 3% 0;
+    width: 12%;
+}
+
+.Login .Heading {
+    text-transform: uppercase;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 250%;
+    color: white;
+}
+
+.Login .Content {
+    margin-top: 4%;
+    padding: 0 20% 0 20%;
+    text-align: left;
+}
+
+@media (max-width: 500px) {
+    .Login .LogoImg img {
+        width: 22%;
+    }
+}

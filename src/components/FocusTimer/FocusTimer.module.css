@@ -1,0 +1,68 @@
+.Main {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    text-align: center;
+    position: relative;
+    margin-top: 6%;
+}
+
+.Main .PromoHead {
+    font-size: 64px;
+    font-weight: 100;
+}
+
+.Main .Cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.Split {
+    margin: 10px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 5%;
+}
+
+.Split .Subhead {
+    font-size: 32px;
+    font-weight: 100;
+}
+
+.Timer .Subhead {
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 100;
+}
+
+.Timer .ShowTime {
+    margin: 10px;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.Timer .TimerButton .Item {
+    padding: 10px;
+}
+
+.Timer .Item {
+    margin: 5px;
+}
+
+.FocusTime {
+    width: 100%;
+    height: 320px;
+}
+
+.FocusTime .Subhead {
+    font-size: 56px;
+    border: 2px solid #ccc;
+}
+
+.FocusTime .ShowTime {
+    font-size: 64px;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}

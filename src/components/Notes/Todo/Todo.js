@@ -2,9 +2,10 @@ import React from 'react';
 import './Todo.css';
 import { Link } from 'react-router-dom';
 
-const todo = props => {
+// import DatePicker from 'react-datepicker';
 
-    const classes = ["jumbotron m-3 col p-0"];
+const todo = props => {
+    const custom = ["Todos jumbotron col p-0"];
     const dateClass = ["dateModify float-right"];
     const targetDate = new Date(props.todo.date);
     const today = new Date();
@@ -16,7 +17,7 @@ const todo = props => {
     }
 
     if (props.todo.completed) {
-        classes.push("CardDetails");
+        custom.push("CardDetails");
     }
 
     const handleTodoClick = () => {
@@ -45,7 +46,7 @@ const todo = props => {
     };
 
     const generateId = () => {
-        return 'multiCollapseExample' + (Math.round(Math.random() * 100));
+        return 'multiCollapseTarget' + Math.floor(Math.random() * 1000);
     }
     
     const generateOnce = generateId();
@@ -78,11 +79,21 @@ const todo = props => {
     // props.todo.date.substring(0, 10)
 
     return (
-        <div className={classes.join(" ")}>
+        <div className={custom.join(" ")}>
             <div className="p-3 bg-light text-dark">
-                <input type="checkbox" checked={props.todo.completed} onChange={handleTodoClick} />
+                <input type="checkbox" 
+                    checked={props.todo.completed} 
+                    onChange={handleTodoClick}
+                    className="p-3"
+                    />
                 <span className="TodoTask">{props.todo.todo}</span>
                 <p className={dateClass.join(" ")}>{dateTime.substring(4, 15) + " |" + dateTime.substring(15, 21)}</p>
+                {/* <p className={dateClass.join(" ")}>
+                    <DatePicker 
+                        selected={dateTime}
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                    />
+                </p> */}
                 <div className="progress">
                     <div className="progress-bar bg-info" 
                         role="progressbar"

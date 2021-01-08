@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import UserContext from '../Context/UserContext';
+import {useHistory} from 'react-router-dom';
 
 function AuthOptions() {
     const { userData, setUserData } = useContext(UserContext);
 
-    // const history = useHistory();
+    let history = useHistory();
 
     // const handleRegister = () => {
     //     history.push("/register");
@@ -23,7 +24,7 @@ function AuthOptions() {
         });
         localStorage.setItem("auth-token", "");
 
-        window.location = "/";
+        history.push("/");
     };
 
     return (
@@ -35,16 +36,16 @@ function AuthOptions() {
                         <span className="nav-link">Hi, {userData.user.username}</span>
                     </li>
                     <li className="nav-item">
-                        <button className="nav-link btn btn-light" onClick={logout}>Log Out</button> 
+                        <button className="nav-link btn btn-light" onClick={logout}>Exit</button> 
                     </li> 
                 </Aux>
                 :
                 <Aux>
-                    <li className="nav-item">
-                        <Link to="/register" style={{textDecoration: 'none'}}><button className="nav-link btn btn-light">Register</button></Link>
+                    <li className="nav-item mb-2">
+                        <Link to="/register" style={{textDecoration: 'none'}}><button className="nav-link btn btn-outline-dark btn-sm">Register</button></Link>
                     </li>
-                    <li className="nav-item">
-                        <Link to="/login" style={{textDecoration: 'none'}}><button className="nav-link btn btn-light">Login</button></Link>
+                    <li className="nav-item ml-2 mb-2">
+                        <Link to="/login" style={{textDecoration: 'none'}}><button className="nav-link btn btn-outline-dark btn-sm">Login</button></Link>
                     </li>
                 </Aux>
             }

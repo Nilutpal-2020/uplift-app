@@ -12,7 +12,6 @@ function PrivateRoute({component: Component, ...rest}){
                 return currentUser ? <Component {...props} /> : <Redirect to="/login" />
             }}
         >
-
         </Route>
     )
 }
